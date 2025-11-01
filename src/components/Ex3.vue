@@ -37,20 +37,15 @@
         },
         methods: {
             async deletePost(id) {
-                // TODO: Complete the delete method
-                axios.get(`${this.baseUrl}/deletePost`, {
-                    params: {
-                        id: id
-                    }
-                })
-                .then(response => {
-                    console.log(response.data.message)
-                    this.posts = this.posts.filter(post => post.id!=id)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-            }
+  try {
+    const response = await axios.delete(`${this.baseUrl}/posts/${id}`);
+    console.log(response.data.message || 'Deleted successfully');
+    this.posts = this.posts.filter(post => post.id !== id);
+  } catch (error) {
+    console.error('Error deleting post:', error.message);
+  }
+}
+
         }
     }
 </script>
